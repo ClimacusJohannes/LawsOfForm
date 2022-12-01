@@ -26,10 +26,14 @@ reflexion-algebra a =
         ((n + (((a * m) * m)) )) 
     ≡⟨ cong (( _+ ((a * m) * m) )) (sym (position (a * m))) ⟩ 
         ((((a * m) * m) + (a * m)) * m) + ((a * m) * m) 
-    ≡⟨ position {!   !} ⟩ 
-        n 
+    ≡⟨ sym (transposition ((a * m)) a (((a * m) * m))) ⟩ 
+        ((((((a * m) + ((a * m) * m)) * m) + ((a + ((a * m) * m)) * m)) * m))
     ≡⟨⟩ 
-        {!   !})
+        {!   !} 
+    ≡⟨⟩ 
+        ({!   !} 
+    ≡⟨⟩ 
+        {!   !}))
     
 
     -- ≡⟨ {! cong (( _+ ((a * m) * m) )) (sym (position (a * m))) !} ⟩ 
