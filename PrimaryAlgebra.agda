@@ -11,14 +11,30 @@ open import PrimaryArithmetic using (position; transposition)
 -- * -- Consequence 1. Reflexion
 
 reflexion : ∀(a : Form) → (a * m) * m ≡ a
-reflexion a = 
+reflexion n = refl
+reflexion m = refl
+
+identity-l : ∀(a : Form) → a ≡ n + a
+identity-l n = refl
+identity-l m = refl 
+
+reflexion-algebra : ∀(a : Form) → ((a * m) * m) ≡ a
+reflexion-algebra a = 
     begin 
-        (((a * m) * m)
-    ≡⟨⟩ 
-        (( n + (((a * m) * m))))
+        ((((a * m) * m)) 
+    ≡⟨ identity-l ((((a * m) * m))) ⟩ 
+        ((n + (((a * m) * m)) )) 
     ≡⟨ cong (( _+ ((a * m) * m) )) (sym (position (a * m))) ⟩ 
-        (((( ( ( ((a * m) * m) + (a * m)) * m) + ((a * m) * m))) ))) 
-    ≡⟨⟩ 
-        ({!   !} 
+        ((((a * m) * m) + (a * m)) * m) + ((a * m) * m) 
+    ≡⟨ position {!   !} ⟩ 
+        n 
     ≡⟨⟩ 
         {!   !})
+    
+
+    -- ≡⟨ {! cong (( _+ ((a * m) * m) )) (sym (position (a * m))) !} ⟩ 
+    --     {! (((( ( ( ((a * m) * m) + (a * m)) * m) + ((a * m) * m))) ))) !}
+    -- ≡⟨⟩ 
+    --     {!   !} 
+    -- ≡⟨⟩ 
+    --     {!   !}  

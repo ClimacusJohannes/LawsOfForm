@@ -1,14 +1,14 @@
-module Parentheses where 
+-- module Parentheses where 
 
-data Form : Set where
-    [] * : Form
-    -- [_] : Form → Form
+-- data Form : Set where
+--     [] * : Form
+--     -- [_] : Form → Form
 
--- record Marked Form : Set where
---     constructor [_]
---     field
---         a : Form
+-- -- record Marked Form : Set where
+-- --     constructor [_]
+-- --     field
+-- --         a : Form
 
-[_] : Form → Form
-[ [] ] = []
-[ * ]  = []
+-- [_] : Form → Form
+-- [ [] ] = []
+-- [ * ]  = []

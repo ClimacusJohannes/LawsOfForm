@@ -72,7 +72,7 @@ value = λ{ n n n x≡z y≡z → refl
          ; m m m x≡z y≡z → refl}
 
 
--- * -- Theorem 8. Invariance, called POSITION (Brown 25)
+-- * -- Theorem 8. Invariance, called POSITION (Brown, p. 25)
 -- If successive spaces sn, sn+i, sn+2 are distinguished by two crosses, 
 -- and sn+i pervades an expression identical with the whole expression in sn+i, 
 -- then the value of the resultant expression in sn is the unmarked state.
@@ -81,7 +81,7 @@ position : ∀(p : Form) → ((((p * m) + p) * m) ≡ n )
 position = λ{ n → refl
               ; m → refl}
 
--- * -- Theorem 9. Variance, called TRANSPOSITION (Brown 26)
+-- * -- Theorem 9. Variance, called TRANSPOSITION (Brown, p. 26)
 -- If successive spaces sn, sn+i, sn+2 are arranged so that sn, sn+i are distinguished by one cross, 
 -- and sn+1, sn+2 are distinguished by two crosses (sn+2 being thus in two divisions), 
 -- then the whole expression e in sn is equivalent to an expression, similar in other
