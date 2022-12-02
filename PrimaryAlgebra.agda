@@ -119,3 +119,17 @@ occultation a b =
     ≡⟨ sym (identity-l a) ⟩ 
         a
     ∎))
+
+-- * -- Consequence 5. Iteration
+
+iteration : ∀(a : Form) → a + a ≡ a
+iteration a =  
+    begin
+        ((a + a)
+    ≡⟨ cong (_+ a) (sym (reflexion a)) ⟩ 
+        (((((a * m) * m) + a))
+    ≡⟨ cong (_+ a) (cong (_* m) (identity-r ((a * m)))) ⟩
+        (((((a * m) + n) * m) + a)) 
+    ≡⟨ occultation a n ⟩ 
+        a 
+    ∎))
