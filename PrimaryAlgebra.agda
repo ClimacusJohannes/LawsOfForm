@@ -10,12 +10,12 @@ open import PrimaryArithmetic using (position; transposition)
 
 -- * -- Consequence 1. Reflexion
 
-reflexion : ∀(a : Form) → (a * m) * m ≡ a
-reflexion n = refl
-reflexion m = refl
+reflexion-splitting : ∀(a : Form) → (a * m) * m ≡ a
+reflexion-splitting n = refl
+reflexion-splitting m = refl
 
-reflexion-algebra : ∀(a : Form) → ((a * m) * m) ≡ a
-reflexion-algebra a = 
+reflexion : ∀(a : Form) → ((a * m) * m) ≡ a
+reflexion a = 
     begin 
         ((((a * m) * m)) 
     ≡⟨ identity-l ((((a * m) * m))) ⟩ 
