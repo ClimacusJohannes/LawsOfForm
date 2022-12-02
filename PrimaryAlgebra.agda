@@ -69,3 +69,27 @@ generation a b =
     ≡⟨ reflexion (((a * m) + b)) ⟩ 
         (((a * m) + b)) 
     ∎))))
+
+-- * -- Consequece 3. Integration
+
+integration-splitting : ∀(a : Form) → (m + a) ≡ m
+integration-splitting n = refl
+integration-splitting m = refl
+
+integration : ∀(a : Form) → (m + a) ≡ m
+integration a = 
+    begin 
+        (((m + a)) 
+    ≡⟨⟩ 
+        ((((n * m) + a)) 
+    ≡⟨ sym (generation n a) ⟩ 
+        ((((n + a) * m) + a)) 
+    ≡⟨ sym (reflexion ((((n + a) * m) + a)))  ⟩ 
+        ((((((n + a) * m) + a) * m) * m)) 
+    ≡⟨ cong (_* m) (cong (_* m) (cong (_+ a) (cong (_* m) (sym (identity-l a  ))) )) ⟩ 
+        ((((((a * m) + a) * m) * m)) 
+    ≡⟨ cong (_* m) (position a) ⟩ 
+        ((n * m)) 
+    ≡⟨⟩ 
+        m 
+    ∎)))
