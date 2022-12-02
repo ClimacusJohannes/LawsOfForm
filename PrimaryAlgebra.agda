@@ -93,3 +93,29 @@ integration a =
     ≡⟨⟩ 
         m 
     ∎)))
+
+-- * -- Consequence 4. Occultation
+
+occultation-splitting : ∀(a b : Form) → (((a * m) + b) * m) + a ≡ a
+occultation-splitting n n = refl
+occultation-splitting n m = refl
+occultation-splitting m n = refl
+occultation-splitting m m = refl
+
+occultation : ∀(a b : Form) → (((a * m) + b) * m) + a ≡ a
+occultation a b = 
+    begin 
+        (((((a * m) + b) * m) + a) 
+    ≡⟨  sym (generation (((a * m) + b)) a) ⟩ 
+        (((((((a * m) + b) + a) * m) + a)) 
+    ≡⟨ cong (_+ a) (cong (_* m) (cong (_+ a) (sym (generation a b)))) ⟩ 
+        (((((((a + b) * m) + b) + a) * m) + a)) 
+    ≡⟨ cong (_+ a) (corollary-1 (((a + b) * m)) b a) ⟩ 
+        ((((((a + b) * m) + (b + a)) * m) + a)) 
+    ≡⟨ cong (_+ a) (cong (_* m) (cong (((a + b) * m) +_) (+-sym b a))) ⟩ 
+        ((((((a + b) * m) + (a + b)) * m) + a)) 
+    ≡⟨ cong (_+ a) (position (a + b)) ⟩ 
+        ((n + a)) 
+    ≡⟨ sym (identity-l a) ⟩ 
+        a
+    ∎))

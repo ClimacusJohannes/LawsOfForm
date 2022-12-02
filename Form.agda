@@ -44,3 +44,12 @@ identity-r m = refl
 +-sym n m = refl
 +-sym m n = refl
 +-sym m m = refl
+
+corollary-1 : ∀(a b c : Form) → ((a + b) + c) * m ≡ (a + (b + c)) * m
+corollary-1 n n n = refl
+corollary-1 n n m = refl
+corollary-1 n m n = refl
+corollary-1 n m m = refl
+corollary-1 m b n = refl
+corollary-1 m n m = refl
+corollary-1 m m m = refl
