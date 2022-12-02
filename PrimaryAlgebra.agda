@@ -43,5 +43,29 @@ reflexion-algebra a =
     ≡⟨ sym (identity-l a) ⟩ 
         a ∎)
     
-    -- (identity-l {! ((((a * m) * m) + a) * m)
-    -- (( _+ ((a + ((a * m) * m)) * m)) * m)   ( cong ( ( _* m) ) (+-sym ((a * m)) (((a * m) * m))) )   
+
+-- * -- Consequence 2. Generation
+
+generation-splitting : ∀(a b : Form) → ((a + b) * m) + b ≡ ((a * m) + b)
+generation-splitting n n = refl
+generation-splitting n m = refl
+generation-splitting m n = refl
+generation-splitting m m = refl
+
+generation : ∀(a b : Form) → ((a + b) * m) + b ≡ ((a * m) + b)
+generation a b = 
+    begin 
+        ((((a + b) * m) + b) 
+    ≡⟨ cong ((_+ b)) (cong (( _* m)) (cong (( _+ b )) (sym (reflexion a)))) ⟩ 
+        (((((((a * m) * m) + b) * m) + b)) 
+    ≡⟨ cong (_+ b) (cong (_* m) (cong (((a * m) * m) +_) (sym (reflexion b)))) ⟩ 
+        ((((((a * m) * m) + ((b * m) * m)) * m) + b)) 
+    ≡⟨ sym (transposition (a * m) (b * m) b) ⟩ 
+        (((((((a * m) + b) * m) + (((b * m) + b) * m)) * m)) 
+    ≡⟨ cong (_* m) (cong ((((a * m) + b) * m) +_) (position b)) ⟩ 
+        ((((((a * m) + b) * m) + n) * m)) 
+    ≡⟨  cong (_* m) (sym (identity-r ((((a * m) + b) * m)))) ⟩ 
+        ((((((a * m) + b) * m) * m)) 
+    ≡⟨ reflexion (((a * m) + b)) ⟩ 
+        (((a * m) + b)) 
+    ∎))))
