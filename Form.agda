@@ -24,8 +24,23 @@ n * m = m
 -- m * n = m
 m * m = n 
 
-+-sym : ∀(a b : Form) → a ≡ b → b ≡ a
-+-sym n n = λ x → x
-+-sym n m = λ{ ()}
-+-sym m n = λ{ ()}
-+-sym m m = λ x → x
+≡-sym : ∀(a b : Form) → a ≡ b → b ≡ a
+≡-sym n n = λ x → x
+≡-sym n m = λ{ ()}
+≡-sym m n = λ{ ()}
+≡-sym m m = λ x → x
+
+
+identity-l : ∀(a : Form) → a ≡ n + a
+identity-l n = refl
+identity-l m = refl 
+
+identity-r : ∀(a : Form) → a ≡ a + n
+identity-r n = refl
+identity-r m = refl
+
++-sym : ∀(a b : Form) → a + b ≡ b + a
++-sym n n = refl
++-sym n m = refl
++-sym m n = refl
++-sym m m = refl
