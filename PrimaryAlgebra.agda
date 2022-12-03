@@ -133,3 +133,25 @@ iteration a =
     ≡⟨ occultation a n ⟩ 
         a 
     ∎))
+
+-- * -- Consequence 6. Extension
+
+extension : ∀(a b : Form) → (((a * m) + (b * m)) * m) + (((a * m) + b) * m) ≡ a
+extension a b = 
+    begin 
+        ((((a * m) + (b * m)) * m) + (((a * m) + b) * m)) 
+    ≡⟨ sym (reflexion ((((a * m) + (b * m)) * m) + (((a * m) + b) * m))) ⟩ 
+        ((((((((a * m) + (b * m)) * m) + (((a * m) + b) * m)) * m) * m))
+    ≡⟨ cong (_* m) (cong (_* m) (cong (_+ (((a * m) + b) * m)) (cong (_* m) (+-sym (a * m) (b * m))))) ⟩ 
+        ((((((((b * m) + (a * m)) * m) + (((a * m) + b) * m)) * m) * m)) 
+    ≡⟨ cong (_* m) (cong (_* m) (cong ((((b * m) + (a * m)) * m) +_) (cong (_* m) (+-sym (a * m) b)) )) ⟩ 
+        (((((((b * m) + (a * m)) * m) + ((b + (a * m)) * m)) * m) * m)) 
+    ≡⟨ cong ((_* m)) (transposition (b * m) b (a * m)) ⟩ 
+        ((((((((b * m) * m) + (b * m)) * m) + (a * m)) * m)) 
+    ≡⟨ cong (_* m) (cong (_+ (a * m)) (position (b * m))) ⟩ 
+        ((((n + (a * m)) * m)) 
+    ≡⟨ cong (_* m) (sym (identity-l (a * m))) ⟩ 
+        (((a * m) * m)) 
+    ≡⟨ reflexion a ⟩ 
+        a 
+    ∎))))
