@@ -86,7 +86,7 @@ position = λ{ n → refl
 -- and sn+1, sn+2 are distinguished by two crosses (sn+2 being thus in two divisions), 
 -- then the whole expression e in sn is equivalent to an expression, similar in other
 -- respects to e, in which an identical expression has been taken
--- out of each division of sn+z and put into sn.
+-- out of each division of sn+z and put into sn. 
 
 
 transposition : ∀(p q r : Form) → ((((p + r) * m) + ((q + r) * m)) * m) ≡ ((((p * m) + (q * m)) * m) + r)
