@@ -17,7 +17,6 @@ m + m = m
 n + x = x
 
 infixr 5 _+_ 
--- 
 
 _*_ : Form → Form → Form -- Order
 x * n = x
@@ -54,3 +53,23 @@ corollary-1 n m m = refl
 corollary-1 m b n = refl
 corollary-1 m n m = refl
 corollary-1 m m m = refl 
+
+corollary-2 : ∀(a b c : Form) → ((a + b) + c) ≡ (a + b + c)
+corollary-2 n n n = refl
+corollary-2 n n m = refl
+corollary-2 n m n = refl
+corollary-2 n m m = refl
+corollary-2 m n n = refl
+corollary-2 m n m = refl
+corollary-2 m m n = refl
+corollary-2 m m m = refl
+
+corollary-3 : ∀(a b c : Form) → a + b + c ≡ c + a + b
+corollary-3 n n n = refl
+corollary-3 n n m = refl
+corollary-3 n m n = refl
+corollary-3 n m m = refl
+corollary-3 m n n = refl
+corollary-3 m n m = refl
+corollary-3 m m n = refl
+corollary-3 m m m = refl
