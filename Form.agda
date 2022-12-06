@@ -16,6 +16,7 @@ x + n = x
 m + m = m
 n + x = x
 
+infixr 5 _+_ 
 -- 
 
 _*_ : Form → Form → Form -- Order
@@ -52,4 +53,4 @@ corollary-1 n m n = refl
 corollary-1 n m m = refl
 corollary-1 m b n = refl
 corollary-1 m n m = refl
-corollary-1 m m m = refl
+corollary-1 m m m = refl 

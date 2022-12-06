@@ -155,3 +155,52 @@ extension a b =
     ≡⟨ reflexion a ⟩ 
         a 
     ∎))))
+
+
+-- * -- Consequence 7. Echelon
+
+echelon : ∀(a b c : Form) → ((((a * m) + b) * m) + c ) * m ≡ ((a + c) * m) + (((b * m) + c) * m)
+echelon a b c = 
+    begin 
+        ((((((a * m) + b) * m) + c ) * m) 
+    ≡⟨ cong (( _* m)) (cong (_+ c) (cong (_* m) (cong ((a * m) +_) (sym (reflexion b))))) ⟩ 
+        (((((((a * m) + ((b * m) * m)) * m) + c) * m)) 
+    ≡⟨ cong (_* m) (sym (transposition a ((b * m)) c)) ⟩ 
+        (((((((a + c) * m) + (((b * m) + c) * m)) * m) * m)) 
+    ≡⟨ reflexion ((((a + c) * m) + (((b * m) + c) * m))) ⟩ 
+        (((a + c) * m) + (((b * m) + c) * m)) ∎ )))
+
+-- * -- Consequence 8. Madified transposition
+
+mod_transpisition : ∀(a b c r : Form) → (((a * m) + ((b + r) * m) + ((c + r) * m)) * m) ≡ ((((a * m) + (b * m) + (c * m)) * m) + (((a * m) + (r * m)) * m))
+mod_transpisition a b c r = 
+    begin 
+        (((((a * m) + ((b + r) * m) + ((c + r) * m)) * m)) 
+    ≡⟨ cong (( _* m)) (cong ((a * m) +_) (sym (reflexion ((((b + r) * m) + ((c + r) * m)))))) ⟩ 
+        (((((a * m) + (((((b + r) * m) + ((c + r) * m)) * m) * m)) * m)) 
+    ≡⟨ cong (_* m) (cong ((a * m) +_) (cong (_* m) (transposition b c r))) ⟩ 
+        ((((a * m) + (((((b * m) + (c * m)) * m) + r) * m)) * m)) 
+    ≡⟨ cong (_* m) (+-sym ((a * m)) ((((((b * m) + (c * m)) * m) + r) * m))) ⟩ 
+        ((((((((b * m) + (c * m)) * m) + r) * m) + (a * m)) * m)) 
+    ≡⟨ echelon ((b * m) + (c * m)) r (a * m) ⟩ 
+        ((((b * m) + (c * m)) + (a * m)) * m) + (((r * m) + (a * m)) * m) 
+    ≡⟨ cong (_+ (((r * m) + (a * m)) * m)) (cong (_* m) (+-sym (((b * m) + (c * m))) (a * m))) ⟩ 
+        ((((a * m) + (b * m) + (c * m)) * m) + (((r * m) + (a * m)) * m) 
+    ≡⟨ cong ((((a * m) + (b * m) + (c * m)) * m) +_) (cong (_* m) (+-sym (r * m) (a * m))) ⟩ 
+        (((a * m) + (b * m) + (c * m)) * m) + (((a * m) + (r * m)) * m) ∎)))
+
+-- * -- Consequence 9. Crosstransposition
+
+crosstransposition : ∀(a b x y r : Form) → ((((b * m) + (r * m)) * m) + (((a * m) + (r * m)) * m) + (((x * m) + (r * m)) * m) + (((y * m) + (r * m)) * m)) * m ≡ (((r * m) + a + b) * m) + ((r + x + y) * m)
+crosstransposition a b x y r = 
+    begin 
+        (((((((b * m) + (r * m)) * m) +
+      (((a * m) + (r * m)) * m) +
+      (((x * m) + (r * m)) * m) + (((y * m) + (r * m)) * m))
+     * m)) 
+    ≡⟨⟩ 
+        ({!   !} 
+    ≡⟨⟩ 
+        ({!   !} 
+    ≡⟨⟩ 
+        {!   !})))
