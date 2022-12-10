@@ -301,3 +301,5 @@ crosstransposition a b x y r =
   ≡⟨ cong ((((r * m) + a + b) * m) +_) (cong (_* m) (corollary-3 x y r)) ⟩ 
     ((((r * m) + a + b) * m) + ((r + x + y) * m)) 
   ∎ 
+
+
