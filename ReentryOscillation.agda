@@ -53,13 +53,11 @@ unwrapSelfRef (self x) = x
 reenter : SelfRef Form → SelfRef Form → Form
 -- multiplyReentry x _ = unwrapSelfRef x
 reenter org (self a) = unwrapSelfRef org
-reenter org (self (x + a)) = (reenter org (self x)) + (reenter org (self a))
-reenter org (self (a + x)) = (reenter org (self a) ) + (reenter org (self x) )
+reenter org (self (x + y)) = (reenter org (self x)) + (reenter org (self y))
 reenter org (self [ x ]) = [ (reenter org (self x)) ]
-reenter org (self (x + y))  = (reenter org (self x) ) + (reenter org (self y) )
 reenter org (self x) = n
 
--- reenter (self ( [ a + [ a ] ] ) ) (self [ a + [ a ] ] )
+-- reenter (self ( [ a + [ a + a ] ] ) ) (self [ [ a + [ a + a ] ] + [ [ a + [ a + a ] ] + [ a + [ a + a ] ] ] ] )
 
 -- reenter ( (self a) (self a) (suc zero) )
 
@@ -67,14 +65,20 @@ multiplyReentry : SelfRef Form → SelfRef Form → Nat → Oscillation Form
 multiplyReentry _ _ zero = <>
 multiplyReentry org curr (suc i) = reenter org curr :: (multiplyReentry org (wrapSelfRef (reenter org curr))) i
 
--- multiplyReentry (self ( [ a + [ a ] ] ) ) (self [ a + [ a ] ] ) 2
+-- multiplyReentry (self ( [ a + [ a + a ] ] ) ) (self [ a + [ a + a ] ] ) 3
 
-evaluateMultiplyReentry : Oscillation Form → Oscillation Form
-evaluateMultiplyReentry <> = <>
-evaluateMultiplyReentry (x :: xs) = (reduce x) :: (evaluateMultiplyReentry xs)
+evaluateMultipleReentry : Oscillation Form → Oscillation Form
+evaluateMultipleReentry <> = <>
+evaluateMultipleReentry (x :: xs) = (reduce x) :: (evaluateMultipleReentry xs)
 
 getOscillation : SelfRef Form → Oscillation Form
-getOscillation x = evaluateMultiplyReentry (multiplyReentry x x 16) 
+getOscillation x = evaluateMultipleReentry (multiplyReentry x x 1) 
+
+-- getOscillation (self [ a ] )
+-- n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: <>
 
 -- getOscillation (self [ a + [ a ] ])
+-- n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: <>
 
+-- getOscillation (self [ [ a ] + [ ( a + a ) ] ])
+-- 
