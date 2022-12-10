@@ -1,2 +1,2 @@
 # LawsOfForm
-An implementation of Spence Brown's _Laws of Form_ in Agda
+An implementation of Spencer Brown's _Laws of Form_ in Agda
