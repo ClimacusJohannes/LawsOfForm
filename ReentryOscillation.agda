@@ -55,9 +55,12 @@ reenter : SelfRef Form → SelfRef Form → Form
 reenter org (self a) = unwrapSelfRef org
 reenter org (self (x + y)) = (reenter org (self x)) + (reenter org (self y))
 reenter org (self [ x ]) = [ (reenter org (self x)) ]
-reenter org (self x) = n
+reenter org (self x) = x
+
+-- reenter ( self ([ a ] + [ a ]) ) (self ([ a ] + [ a ]) )
 
 -- reenter (self ( [ a + [ a + a ] ] ) ) (self [ [ a + [ a + a ] ] + [ [ a + [ a + a ] ] + [ a + [ a + a ] ] ] ] )
+-- reenter (self ( [ a + a ] ) ) (self ( [ a + a ] ) )
 
 -- reenter ( (self a) (self a) (suc zero) )
 
@@ -65,14 +68,14 @@ multiplyReentry : SelfRef Form → SelfRef Form → Nat → Oscillation Form
 multiplyReentry _ _ zero = <>
 multiplyReentry org curr (suc i) = reenter org curr :: (multiplyReentry org (wrapSelfRef (reenter org curr))) i
 
--- multiplyReentry (self ( [ a + [ a + a ] ] ) ) (self [ a + [ a + a ] ] ) 3
+-- multiplyReentry (self ( [ a + [ a + [ a ] ] ] ) ) (self [ a + [ a + [ a ] ] ] ) 10
 
 evaluateMultipleReentry : Oscillation Form → Oscillation Form
 evaluateMultipleReentry <> = <>
 evaluateMultipleReentry (x :: xs) = (reduce x) :: (evaluateMultipleReentry xs)
 
 getOscillation : SelfRef Form → Oscillation Form
-getOscillation x = evaluateMultipleReentry (multiplyReentry x x 1) 
+getOscillation x = evaluateMultipleReentry (multiplyReentry x x 5) 
 
 -- getOscillation (self [ a ] )
 -- n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: n :: [] :: <>
@@ -80,5 +83,29 @@ getOscillation x = evaluateMultipleReentry (multiplyReentry x x 1)
 -- getOscillation (self [ a + [ a ] ])
 -- n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: n :: <>
 
--- getOscillation (self [ [ a ] + [ ( a + a ) ] ])
--- 
+-- getOscillation (self [ [ a ] + [ a + [ a ] ] ])
+-- n :: n :: n :: n :: n :: <>
+
+-- getOscillation (self [ [ a ] + [ a + a ] ])
+-- n :: n :: n :: n :: n :: <>
+
+-- getOscillation (self [ [ [] ] + [ a + [] ] + a ])
+-- n :: n :: n :: n :: n :: <>
+
+-- getOscillation (self ( [ a ] + [ a ] ))
+-- n :: [] :: n :: [] :: n :: <>
+
+-- getOscillation (self [ [ [ a ] ] ] )
+-- n :: [] :: n :: [] :: n :: <>
+
+-- getOscillation (self [ [ [ a ] ] + [ a ] ] )
+-- n :: [] :: n :: [] :: n :: <>
+
+-- getOscillation (self [ a ] )
+-- n :: [] :: n :: [] :: n :: <>
+
+-- getOscillation (self a)
+-- n :: n :: n :: n :: n :: <>
+
+-- getOscillation (self ( [ a ] + [ [ a ] ] ))
+-- [] :: [] :: [] :: [] :: [] :: <>
