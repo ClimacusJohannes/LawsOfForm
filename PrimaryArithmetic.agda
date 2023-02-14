@@ -5,6 +5,11 @@ open Eq using (_≡_; refl; cong; sym)
 open Eq.≡-Reasoning using (begin_; _≡⟨⟩_; _∎; step-≡)
 open import Relation.Nullary using (¬_)
 
+data Nat : Set where
+  zero : Nat
+  suc  : Nat → Nat
+{-# BUILTIN NATURAL Nat #-}
+
 open import Form
 
 

@@ -73,3 +73,11 @@ corollary-3 m n n = refl
 corollary-3 m n m = refl
 corollary-3 m m n = refl
 corollary-3 m m m = refl
+
+-- * -- Form List for theorems of second order
+
+data +-List ( Form : Set ) : Set₂ where
+  <> : +-List Form
+  _++_ : Form → +-List Form → +-List Form
+
+infixr 40 _++_
