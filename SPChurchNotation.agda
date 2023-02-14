@@ -13,28 +13,9 @@ data Nat : Set where
   suc  : Nat → Nat
 {-# BUILTIN NATURAL Nat #-}
 
--- This module will implement a partial translation of SpencerBrown's laws of form into Church notation, based on Turney (1986)
--- We will consider self-referential function as a set of equations including each other as their arguments.
-
-
--- Equation
-
--- data Memory-Equation (Form : Set) : Set₂ where
---     _+_*m : Form → Form → Memory-Equation Form
-
--- a : Memory-Equation Form
--- a = {!   !} + {!   !} *m
--- -- List of equations
-
--- data Equation-List (Form : Set₁) : Set₂ where
---     []  : Equation-List (Form → Form → Form)
---     _::_  : (Form → Form → Form) → Equation-List (Form → Form → Form) → Equation-List (Form → Form → Form)
-
--- infixr 40 _::_
-
--- Matrix
-
-
+-- This module will implement a partial translation of SpencerBrown's laws of form into Church restricted recursive arithmetic, based on Turney (1986)
+-- We will consider self-referential function as a set of equations including each other's predecessor values as arguments. 
+-- The transition from one itertion of a value to another is interpreted as logical time and thus as providing the dimension for imaginary logical values.
 
 record MatrixColumn : Set where
   constructor
@@ -54,7 +35,6 @@ record MatrixColumn : Set where
 computeColumn : MatrixColumn → Form → Form → (Form → Form → Form) → (Form → Form → Form) → MatrixColumn
 computeColumn ⟨ x' , y' , a' , b' ⟩ x y a b = ⟨ x , y , a b' x' , b a' y' ⟩
 
-
 -- (f + a) * m)
 a : Form → Form → Form
 a a₂ x₁ = (a₂ + x₁) * m
@@ -70,14 +50,14 @@ firstColumn = computeColumn initColumn n m a b
 
 secondColumn = computeColumn firstColumn n m a b 
 
--- compute the whole matrix base on the 
+-- define matrix rows used for values of x and y
 
 data MatrixRow (Form : Set) : Set₂ where
     <> : MatrixRow Form
     _::_ : Form → MatrixRow Form → MatrixRow Form
 
 
--- adding to MatrixRow - backwards
+-- setting up the values for x and y
 
 append : Form → MatrixRow Form → MatrixRow Form 
 append form row = form :: row
@@ -92,8 +72,7 @@ xrow = iterateFormMatrixRow n 5 (iterateFormMatrixRow m 3 (iterateFormMatrixRow 
 yrow : MatrixRow Form
 yrow = iterateFormMatrixRow n 1 (iterateFormMatrixRow m 3 (iterateFormMatrixRow n 7 <>))
 
-
--- compute memory matrix based on rows
+-- Define a matrix
 
 data Matrix (MatrixColumn : Set) : Set₂ where
     [] : Matrix MatrixColumn
@@ -104,6 +83,7 @@ reverseMatrix [] revmatrix = revmatrix
 reverseMatrix (col ++ initmatrix) [] = reverseMatrix initmatrix (col ++ [])
 reverseMatrix (col ++ initmatrix) (revmatrix) = reverseMatrix initmatrix (col ++ revmatrix)
 
+-- compute the matrix of Memory fuction
 -- take in rows for x and y
 -- take in funstions a and b
 -- compute a particular matrix column and add it to what has been constructed before
@@ -122,25 +102,19 @@ computeMatrix [] (x :: xrow) (y :: yrow) a b = []
 memoryMatrix : Matrix MatrixColumn
 memoryMatrix = reverseMatrix (computeMatrix (initColumn ++ []) xrow yrow a b) [] 
 
-
-
-
-
-
-
--- memoryMatrix : Matrix MatrixRow Form
--- memoryMatrix = ? 
-
-
-
--- -- computing functions
-
--- compute : MatrixRow Form → MatrixRow Form → (Form → Form → Form) → (Form → Form → Form) → Form → Form → Matrix (MatrixRow Form) → Matrix (MatrixRow Form)
--- compute <> _ a₁ a₂ a₁init a₂init matrix = []
--- compute _ <> a₁ a₂ a₁init a₂init matrix = []
--- compute (x₁ :: x₁row) (x₂ :: x₂row) a₁ a₂ a₁prev a₂prev matrix = {!   !} ++ matrix
-
--- E1 - MEMORY
--- f = ((f + a) * m) + b) * m
--- 
- 
+{-
+memoryMatrix = 
+⟨ n , n , n , m ⟩ ++
+  (⟨ n , n , n , m ⟩ ++
+    (⟨ n , m , n , m ⟩ ++
+      (⟨ n , m , n , n ⟩ ++
+        (⟨ n , m , m , n ⟩ ++
+          (⟨ n , n , m , n ⟩ ++
+            (⟨ m , n , m , n ⟩ ++
+              (⟨ m , n , n , n ⟩ ++
+                (⟨ m , n , n , m ⟩ ++
+                  (⟨ n , n , n , m ⟩ ++
+                    (⟨ n , n , n , m ⟩ ++ 
+                      (⟨ n , n , n , m ⟩ ++ []
+)))))))))))
+-}
